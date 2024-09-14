@@ -34,11 +34,15 @@ kubernetes-flask-hello-world/
    docker build -t flask-k8s-hello-world .
    ```
 
+   This command builds a Docker image from your Dockerfile. The `-t` flag tags the image with the name `flask-k8s-hello-world`. The `.` at the end specifies that the Dockerfile is in the current directory.
+
 3. Tag the Docker image:
 
    ```bash
    docker tag flask-k8s-hello-world your-docker-username/flask-k8s-hello-world
    ```
+
+   This step tags your image with your Docker Hub username, preparing it for pushing to Docker Hub. Replace `your-docker-username` with your actual Docker Hub username.
 
 4. Push the image to Docker Hub:
 
@@ -46,31 +50,39 @@ kubernetes-flask-hello-world/
    docker push your-docker-username/flask-k8s-hello-world
    ```
 
+   This command uploads your Docker image to Docker Hub, making it accessible for your Kubernetes cluster to pull. Ensure you're logged in to Docker Hub (`docker login`) before running this command.
+
 5. Deploy to Kubernetes:
 
    ```bash
    kubectl apply -f kubernetes-deployment.yaml
    ```
 
-   Note: If already deployed, you can delete the existing deployment and redeploy:
+   This command creates or updates the resources defined in your `kubernetes-deployment.yaml` file in your Kubernetes cluster.
 
-   Check the status of the pods:
-
-   ```bash
-    kubectl get pods
-   ```
-
-   Delete the deployment:
-
-   ```bash
-    kubectl delete -f kubernetes-deployment.yaml
-   ```
-
-   Redeploy the application:
-
-   ```bash
-    kubectl apply -f kubernetes-deployment.yaml
-   ```
+   > Note: If already deployed, you can delete the existing deployment and redeploy:
+   > Check the status of the pods:
+   >
+   > ```bash
+   >  kubectl get pods
+   > ```
+   >
+   > This shows the current running pods in your cluster.
+   > Delete the deployment:
+   >
+   > ```bash
+   > kubectl delete -f kubernetes-deployment.yaml
+   > ```
+   >
+   > This removes the existing deployment and associated resources.
+   >
+   > Redeploy the application:
+   >
+   > ```bash
+   > kubectl apply -f kubernetes-deployment.yaml
+   > ```
+   >
+   > This creates a fresh deployment with your updated configuration or image.
 
 6. Access the application:
 
@@ -78,7 +90,10 @@ kubernetes-flask-hello-world/
    kubectl port-forward service/flask-hello-world 8080:80
    ```
 
+   This command forwards traffic from your local machine's port 8080 to port 80 of the `flask-hello-world` service in your Kubernetes cluster.
+
    Open a web browser and navigate to `http://localhost:8080`
+   You should now see your Flask application's "Hello, World!" message in your web browser.
 
 ## Detailed Setup
 
